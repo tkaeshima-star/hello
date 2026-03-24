@@ -5,450 +5,347 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>履歴書 - 嘉永島 大馳</title>
   <style>
-    @page {
-      size: A4;
-      margin: 12mm 12mm 12mm 12mm;
-    }
+    @page { size: A4; margin: 12mm; }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
-      font-size: 10.5px;
+      font-size: 10px;
       color: #000;
       background: #fff;
-      padding: 15px 20px;
+      padding: 10px 15px;
       max-width: 210mm;
       margin: 0 auto;
     }
 
-    /* ======= HEADER ======= */
-    .header-row {
+    /* ========== HEADER ========== */
+    .header {
       display: flex;
-      align-items: baseline;
       justify-content: space-between;
-      margin-bottom: 6px;
+      align-items: baseline;
+      margin-bottom: 5px;
     }
-
-    h1.title {
+    .header h1 {
       font-size: 22px;
       font-weight: bold;
-      letter-spacing: 10px;
+      letter-spacing: 12px;
     }
+    .header .date { font-size: 10.5px; }
 
-    .date-line {
-      font-size: 11px;
-      letter-spacing: 2px;
+    /* ========== TOP PERSONAL INFO TABLE ========== */
+    /*
+      4 columns:
+        C1 = label  (56px)
+        C2 = value  (flex)
+        C3 = 電話 label (36px)  / top: photo (colspan=2, rowspan=2)
+        C4 = phone val (100px) / top: (photo continued)
+    */
+    .top-table {
+      width: 100%;
+      border-collapse: collapse;
     }
-
-    /* ======= TOP SECTION (info + photo) ======= */
-    .top-section {
-      display: flex;
-      gap: 0;
-      margin-bottom: 0;
-    }
-
-    .info-block {
-      flex: 1;
+    .top-table td {
       border: 1px solid #000;
-      border-right: none;
-    }
-
-    .photo-box {
-      width: 95px;
-      border: 1px solid #000;
-      font-size: 8.5px;
-      padding: 5px 6px;
-      line-height: 1.5;
-    }
-
-    .photo-box .photo-title {
-      text-align: center;
-      font-size: 9px;
-      margin-bottom: 4px;
-      border-bottom: 1px solid #000;
-      padding-bottom: 3px;
-    }
-
-    /* info-block rows */
-    .info-block .row {
-      display: flex;
-      border-bottom: 1px solid #000;
-    }
-
-    .info-block .row:last-child {
-      border-bottom: none;
-    }
-
-    .info-block .row .cell-label {
-      border-right: 1px solid #000;
-      padding: 3px 6px;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      font-weight: bold;
-      font-size: 10.5px;
-      letter-spacing: 2px;
-    }
-
-    .info-block .row .cell-value {
-      flex: 1;
-      padding: 3px 8px;
-    }
-
-    .furigana-row .cell-value {
-      font-size: 9px;
-      letter-spacing: 2px;
-      padding: 2px 8px;
-    }
-
-    .name-row .cell-value {
-      font-size: 20px;
-      font-weight: bold;
-      letter-spacing: 6px;
-      padding: 4px 8px;
-    }
-
-    .birth-row .cell-value {
-      display: flex;
-      align-items: center;
-      font-size: 10.5px;
-      gap: 4px;
-      flex-wrap: wrap;
-      padding: 3px 8px;
-    }
-
-    .gender-cell {
-      border-left: 1px solid #000;
-      padding: 3px 8px;
-      white-space: nowrap;
+      vertical-align: middle;
       font-size: 10px;
     }
 
-    .addr-furigana {
-      font-size: 9px;
-      letter-spacing: 2px;
-    }
-
-    .addr-value {
-      font-size: 10.5px;
-      line-height: 1.7;
-    }
-
-    .contact-row {
-      display: flex;
-      border-bottom: none;
-    }
-
-    .contact-row .email-cell {
-      flex: 1;
-      border-right: 1px solid #000;
-      padding: 3px 8px;
-      font-size: 10.5px;
-    }
-
-    .contact-row .tel-label {
-      border-right: 1px solid #000;
-      padding: 3px 6px;
+    /* label cells */
+    .td-lbl {
+      width: 56px;
       white-space: nowrap;
+      font-size: 9px;
+      padding: 2px 4px;
+    }
+    .td-lbl-main {
+      width: 56px;
+      font-size: 11px;
       font-weight: bold;
+      letter-spacing: 3px;
+      white-space: nowrap;
+      padding: 3px 4px;
+      text-align: justify;
+      text-align-last: justify;
     }
 
-    .contact-row .tel-value {
-      padding: 3px 8px;
-      width: 130px;
-      font-size: 10.5px;
+    /* value cells */
+    .td-val { padding: 2px 7px; }
+    .td-furi { font-size: 9px; letter-spacing: 2px; padding: 2px 7px; }
+    .td-name {
+      font-size: 19px;
+      font-weight: bold;
+      letter-spacing: 6px;
+      padding: 5px 10px;
+    }
+    .td-birth {
+      padding: 3px 10px;
+      font-size: 10px;
     }
 
-    /* ======= TABLES (history, license) ======= */
-    table {
+    /* photo cell */
+    .td-photo {
+      width: 136px; /* colspan=2: C3(36)+C4(100) */
+      border: 1px dashed #000 !important;
+      vertical-align: top;
+      text-align: center;
+      font-size: 8px;
+      line-height: 1.6;
+      padding: 4px 5px;
+    }
+    .photo-title {
+      font-size: 9px;
+      border-bottom: 1px solid #000;
+      margin-bottom: 3px;
+      padding-bottom: 2px;
+      text-align: center;
+    }
+
+    /* address */
+    .td-addr { font-size: 10px; line-height: 1.65; padding: 3px 7px; }
+
+    /* contact row */
+    .td-email-lbl {
+      width: 56px;
+      font-size: 10px;
+      padding: 3px 5px;
+      white-space: nowrap;
+    }
+    .td-email-val { padding: 3px 7px; }
+    .td-tel-lbl {
+      width: 36px;
+      text-align: center;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 3px 3px;
+      white-space: nowrap;
+    }
+    .td-tel-val {
+      width: 100px;
+      font-size: 10px;
+      padding: 3px 5px;
+    }
+
+    /* ========== HISTORY / LICENSE TABLES ========== */
+    .data-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: -1px;
     }
-
-    td, th {
+    .data-table td, .data-table th {
       border: 1px solid #000;
-      padding: 2px 6px;
+      padding: 2px 5px;
+      font-size: 10px;
       vertical-align: middle;
     }
+    .data-table tr { height: 20px; }
+    .c-year { width: 50px; text-align: center; }
+    .c-month { width: 26px; text-align: center; }
+    .c-content { padding-left: 10px; }
+    .hd { font-weight: bold; font-size: 11px; text-align: center; }
 
-    .col-year {
-      width: 52px;
-      text-align: center;
-      font-size: 10.5px;
-    }
-
-    .col-month {
-      width: 28px;
-      text-align: center;
-      font-size: 10.5px;
-    }
-
-    .col-content {
-      font-size: 10.5px;
-      padding-left: 10px;
-    }
-
-    .section-hd {
-      font-weight: bold;
-      font-size: 11px;
-      text-align: center;
-    }
-
-    .history-row {
-      height: 21px;
-    }
-
-    /* ======= BOTTOM BOXES ======= */
-    .box-label {
-      font-size: 10.5px;
-      font-weight: bold;
-      padding: 3px 6px;
-      border-bottom: 1px solid #000;
-    }
-
-    .motivation-table {
+    /* ========== MOTIVATION BOX ========== */
+    .motiv-table {
+      width: 100%;
+      border-collapse: collapse;
       margin-top: -1px;
     }
-
-    .motivation-label {
-      font-size: 10.5px;
-      font-weight: bold;
-      padding: 3px 6px;
-    }
-
-    .motivation-content {
-      font-size: 10.5px;
-      line-height: 1.75;
+    .motiv-table td { border: 1px solid #000; }
+    .motiv-lbl { font-size: 10px; padding: 2px 5px; }
+    .motiv-body {
+      font-size: 10px;
       padding: 5px 8px;
-      height: 110px;
+      height: 105px;
       vertical-align: top;
+      line-height: 1.75;
     }
 
-    .bottom-split {
+    /* ========== BOTTOM SPLIT ========== */
+    .bottom-wrap {
       display: flex;
       margin-top: -1px;
     }
-
-    .bottom-left {
-      flex: 1;
-      border: 1px solid #000;
-      border-right: none;
-    }
-
-    .bottom-right {
+    .bottom-box {
       flex: 1;
       border: 1px solid #000;
     }
-
-    .bottom-split-label {
-      font-size: 10.5px;
-      font-weight: bold;
-      padding: 3px 6px;
+    .bottom-box:first-child { border-right: none; }
+    .bottom-lbl {
+      font-size: 10px;
+      padding: 2px 5px;
       border-bottom: 1px solid #000;
     }
-
-    .bottom-split-content {
-      font-size: 10.5px;
+    .bottom-body {
+      font-size: 10px;
       padding: 5px 8px;
-      min-height: 70px;
-      vertical-align: top;
+      min-height: 72px;
       line-height: 1.75;
+      vertical-align: top;
     }
 
-    .footnote {
-      font-size: 9px;
-      margin-top: 4px;
-      color: #333;
-    }
+    .footnote { font-size: 8.5px; margin-top: 4px; }
 
-    @media print {
-      body { padding: 0; }
-    }
+    @media print { body { padding: 0; } }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div class="header-row">
-    <h1 class="title">履　歴　書</h1>
-    <span class="date-line">2026年　3月　24日現在</span>
+  <!-- HEADER: title left, date right -->
+  <div class="header">
+    <h1>履　歴　書</h1>
+    <span class="date">2026年　3月　24日現在</span>
   </div>
 
-  <!-- TOP SECTION: personal info + photo -->
-  <div class="top-section">
-    <div class="info-block">
+  <!-- PERSONAL INFO TABLE (4 columns) -->
+  <table class="top-table">
+    <colgroup>
+      <col style="width:56px">
+      <col><!-- flex -->
+      <col style="width:36px">
+      <col style="width:100px">
+    </colgroup>
 
-      <!-- ふりがな -->
-      <div class="row furigana-row">
-        <div class="cell-label" style="font-weight:normal; font-size:9px; letter-spacing:0;">ふりがな</div>
-        <div class="cell-value">かえしま　たいち</div>
-      </div>
+    <!-- Row 1: ふりがな | photo (rowspan=2, colspan=2) -->
+    <tr>
+      <td class="td-lbl">ふりがな</td>
+      <td class="td-furi">かえしま　たいち</td>
+      <td class="td-photo" colspan="2" rowspan="2">
+        <div class="photo-title">写真をはる位置</div>
+        写真をはる必要が<br>ある場合<br>
+        1.縦　36〜40mm<br>
+        　横　24〜30mm<br>
+        2.本人単身胸から上<br>
+        3.裏面のりづけ<br>
+        4.裏面に氏名記入
+      </td>
+    </tr>
 
-      <!-- 氏名 -->
-      <div class="row name-row">
-        <div class="cell-label">氏　名</div>
-        <div class="cell-value">嘉永島　大馳</div>
-      </div>
+    <!-- Row 2: 氏名 | (photo continues) -->
+    <tr>
+      <td class="td-lbl-main">氏　名</td>
+      <td class="td-name">嘉永島　大馳</td>
+    </tr>
 
-      <!-- 生年月日 / 性別 -->
-      <div class="row birth-row">
-        <div class="cell-value">
-          2006年&nbsp;8月&nbsp;22日生（満&nbsp;19&nbsp;歳）
-          <span class="gender-cell">※性別&nbsp;男</span>
-        </div>
-      </div>
+    <!-- Row 3: 生年月日 / 性別 (full width) -->
+    <tr>
+      <td colspan="4" class="td-birth">
+        　2006年　8月　22日生（満　19　歳）　　　　　　　　　※性別　男
+      </td>
+    </tr>
 
-      <!-- ふりがな (住所) -->
-      <div class="row">
-        <div class="cell-label" style="font-weight:normal; font-size:9px; letter-spacing:0;">ふりがな</div>
-        <div class="cell-value addr-furigana">かながわけん　かわさきし　みやまえく　みやまえだいら</div>
-      </div>
+    <!-- Row 4: ふりがな (住所) -->
+    <tr>
+      <td class="td-lbl">ふりがな</td>
+      <td colspan="3" class="td-furi">かながわけん　かわさきし　みやまえく　みやまえだいら</td>
+    </tr>
 
-      <!-- 現住所 -->
-      <div class="row" style="min-height:42px;">
-        <div class="cell-label">現住所</div>
-        <div class="cell-value addr-value">
-          〒216－0033　神奈川県川崎市宮前区宮前平 2-5-20<br>
-          マストレジデンス宮前平 304号室
-        </div>
-      </div>
+    <!-- Row 5-6: 現住所 (2 lines) -->
+    <tr>
+      <td class="td-lbl-main" rowspan="2" style="vertical-align:middle; letter-spacing:0; font-size:10.5px;">現住所</td>
+      <td colspan="3" class="td-addr">〒216－0033　神奈川県川崎市宮前区宮前平 2-5-20</td>
+    </tr>
+    <tr>
+      <td colspan="3" class="td-addr">マストレジデンス宮前平 304号室</td>
+    </tr>
 
-      <!-- E-mail / 電話 -->
-      <div class="row" style="border-bottom:none;">
-        <div class="cell-label" style="font-weight:normal; letter-spacing:0; font-size:10.5px;">E-mail</div>
-        <div class="cell-value" style="flex:1; border-right:1px solid #000;">t.kaeshima@gmail.com</div>
-        <div class="cell-label" style="letter-spacing:0; font-size:10.5px;">電話</div>
-        <div class="cell-value" style="width:130px;">080-7237-7056</div>
-      </div>
+    <!-- Row 7: E-mail | 電話 -->
+    <tr>
+      <td class="td-email-lbl">E-mail</td>
+      <td class="td-email-val">t.kaeshima@gmail.com</td>
+      <td class="td-tel-lbl">電話</td>
+      <td class="td-tel-val">080-7237-7056</td>
+    </tr>
 
-    </div><!-- /info-block -->
-
-    <!-- Photo box -->
-    <div class="photo-box">
-      <div class="photo-title">写真をはる位置</div>
-      写真をはる必要がある場合<br>
-      1.&nbsp;縦&nbsp;36〜40mm<br>
-      &nbsp;&nbsp;&nbsp;横&nbsp;24〜30mm<br>
-      2.本人単身胸から上<br>
-      3.裏面のりづけ<br>
-      4.裏面に氏名記入
-    </div>
-  </div><!-- /top-section -->
+  </table>
 
   <!-- 学歴・職歴 -->
-  <table>
+  <table class="data-table">
     <tr>
-      <th class="col-year section-hd">年</th>
-      <th class="col-month section-hd">月</th>
-      <th class="col-content section-hd">学　歴・職　歴（各別にまとめて書く）</th>
+      <th class="c-year hd">年</th>
+      <th class="c-month hd">月</th>
+      <th class="c-content hd">学　歴・職　歴（各別にまとめて書く）</th>
     </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content" style="font-weight:bold;">学歴</td>
+    <tr>
+      <td class="c-year"></td>
+      <td class="c-month"></td>
+      <td class="c-content" style="font-weight:bold;">学歴</td>
     </tr>
-    <tr class="history-row">
-      <td class="col-year">2022</td>
-      <td class="col-month">4</td>
-      <td class="col-content">神奈川県立○○高等学校　入学</td>
+    <tr>
+      <td class="c-year">2022</td>
+      <td class="c-month">4</td>
+      <td class="c-content">神奈川県立○○高等学校　入学</td>
     </tr>
-    <tr class="history-row">
-      <td class="col-year">2025</td>
-      <td class="col-month">3</td>
-      <td class="col-content">神奈川県立○○高等学校　卒業</td>
+    <tr>
+      <td class="c-year">2025</td>
+      <td class="c-month">3</td>
+      <td class="c-content">神奈川県立○○高等学校　卒業</td>
     </tr>
-    <tr class="history-row">
-      <td class="col-year">2025</td>
-      <td class="col-month">4</td>
-      <td class="col-content">法政大学　経営学部　経営戦略学科　入学（現在1年生）</td>
+    <tr>
+      <td class="c-year">2025</td>
+      <td class="c-month">4</td>
+      <td class="c-content">法政大学　経営学部　経営戦略学科　入学（現在1年生）</td>
     </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content"></td>
+    <tr><td class="c-year"></td><td class="c-month"></td><td class="c-content"></td></tr>
+    <tr>
+      <td class="c-year"></td>
+      <td class="c-month"></td>
+      <td class="c-content" style="font-weight:bold;">職歴</td>
     </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content" style="font-weight:bold;">職歴</td>
+    <tr>
+      <td class="c-year"></td>
+      <td class="c-month"></td>
+      <td class="c-content">なし</td>
     </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content">なし</td>
+    <tr>
+      <td class="c-year"></td>
+      <td class="c-month"></td>
+      <td class="c-content" style="text-align:right; font-weight:bold; padding-right:10px;">以上</td>
     </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content" style="text-align:right; font-weight:bold; padding-right:12px;">以上</td>
-    </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content"></td>
-    </tr>
+    <tr><td class="c-year"></td><td class="c-month"></td><td class="c-content"></td></tr>
   </table>
 
   <!-- 免許・資格 -->
-  <table>
+  <table class="data-table">
     <tr>
-      <th class="col-year section-hd">年</th>
-      <th class="col-month section-hd">月</th>
-      <th class="col-content section-hd">免　許・資　格</th>
+      <th class="c-year hd">年</th>
+      <th class="c-month hd">月</th>
+      <th class="c-content hd">免　許・資　格</th>
     </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content">実用英語技能検定　2級　取得</td>
+    <tr>
+      <td class="c-year"></td>
+      <td class="c-month"></td>
+      <td class="c-content">実用英語技能検定　2級　取得</td>
     </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content"></td>
-    </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content"></td>
-    </tr>
-    <tr class="history-row">
-      <td class="col-year"></td>
-      <td class="col-month"></td>
-      <td class="col-content"></td>
-    </tr>
+    <tr><td class="c-year"></td><td class="c-month"></td><td class="c-content"></td></tr>
+    <tr><td class="c-year"></td><td class="c-month"></td><td class="c-content"></td></tr>
+    <tr><td class="c-year"></td><td class="c-month"></td><td class="c-content"></td></tr>
   </table>
 
   <!-- 志望の動機、特技、アピールポイントなど -->
-  <table class="motivation-table">
+  <table class="motiv-table">
     <tr>
-      <td colspan="2" class="motivation-label">志望の動機、特技、アピールポイントなど</td>
+      <td class="motiv-lbl">志望の動機、特技、アピールポイントなど</td>
     </tr>
     <tr>
-      <td class="motivation-content" colspan="2">
+      <td class="motiv-body">
         貴塾の「結果を出せば報われる」という理念に惹かれたのは、自身の体験からです。高校バレーボール部では入部当初から試合に出られない時期が続きましたが、フォームや動き方を一つひとつ修正し続けた結果、3年時に試合へ貢献できるようになりました。この経験から、正しい努力は必ず結果につながると確信しています。チューターとしては、成績が伸び悩む生徒の「なぜ解けないか」を一緒に整理し、結果を出す喜びを生徒と共有したいと考えています。特技：バレーボール（高校3年間）、英語（英検2級）。ぜひ貴塾で働かせてください。
       </td>
     </tr>
   </table>
 
-  <!-- 希望勤務日・時間帯 / 本人希望記入欄 -->
-  <div class="bottom-split">
-    <div class="bottom-left">
-      <div class="bottom-split-label">希望勤務日・時間帯</div>
-      <div class="bottom-split-content">
+  <!-- 希望勤務日・時間帯 ／ 本人希望記入欄 -->
+  <div class="bottom-wrap">
+    <div class="bottom-box">
+      <div class="bottom-lbl">希望勤務日・時間帯</div>
+      <div class="bottom-body">
         週3〜4日程度希望<br>
         平日・土日ともに応相談<br>
         通勤方法：電車（宮前平駅利用）
       </div>
     </div>
-    <div class="bottom-right">
-      <div class="bottom-split-label">本人希望記入欄（職種、店舗、その他）</div>
-      <div class="bottom-split-content">
+    <div class="bottom-box">
+      <div class="bottom-lbl">本人希望記入欄（職種、店舗、その他）</div>
+      <div class="bottom-body">
         職種：チューター（個別指導）<br>
         特に希望なし
       </div>
