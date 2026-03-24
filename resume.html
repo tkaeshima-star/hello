@@ -7,7 +7,7 @@
   <style>
     @page {
       size: A4;
-      margin: 15mm;
+      margin: 12mm 12mm 12mm 12mm;
     }
 
     * {
@@ -18,298 +18,444 @@
 
     body {
       font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
-      font-size: 11px;
+      font-size: 10.5px;
       color: #000;
       background: #fff;
-      padding: 20px;
+      padding: 15px 20px;
       max-width: 210mm;
       margin: 0 auto;
     }
 
-    h1.title {
-      text-align: center;
-      font-size: 22px;
-      font-weight: bold;
-      letter-spacing: 12px;
+    /* ======= HEADER ======= */
+    .header-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
       margin-bottom: 6px;
     }
 
+    h1.title {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 10px;
+    }
+
     .date-line {
-      text-align: right;
       font-size: 11px;
-      margin-bottom: 10px;
+      letter-spacing: 2px;
     }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    td, th {
-      border: 1px solid #000;
-      padding: 5px 7px;
-      vertical-align: middle;
-    }
-
-    /* 上部：基本情報エリア */
-    .info-area {
+    /* ======= TOP SECTION (info + photo) ======= */
+    .top-section {
       display: flex;
       gap: 0;
       margin-bottom: 0;
     }
 
-    .main-table {
-      width: 100%;
-      margin-bottom: 10px;
+    .info-block {
+      flex: 1;
+      border: 1px solid #000;
+      border-right: none;
     }
 
-    .main-table td {
-      font-size: 11px;
+    .photo-box {
+      width: 95px;
+      border: 1px solid #000;
+      font-size: 8.5px;
+      padding: 5px 6px;
+      line-height: 1.5;
     }
 
-    .label {
-      background-color: #f0f0f0;
-      font-weight: bold;
-      white-space: nowrap;
-      width: 1%;
-    }
-
-    .section-header {
-      background-color: #ddd;
-      font-weight: bold;
-      font-size: 12px;
+    .photo-box .photo-title {
       text-align: center;
-      padding: 4px;
-    }
-
-    .history-table td {
-      font-size: 11px;
-      height: 22px;
-    }
-
-    .year-col {
-      width: 60px;
-      text-align: center;
-    }
-
-    .month-col {
-      width: 30px;
-      text-align: center;
-    }
-
-    .content-col {
-      text-align: left;
-      padding-left: 10px;
-    }
-
-    .right-label {
-      text-align: right;
-    }
-
-    .motivation-box {
-      height: 100px;
-      vertical-align: top;
-      padding: 6px;
-      font-size: 11px;
-      line-height: 1.8;
-    }
-
-    .pr-box {
-      height: 80px;
-      vertical-align: top;
-      padding: 6px;
-      font-size: 11px;
-      line-height: 1.8;
-    }
-
-    .wish-box {
-      height: 60px;
-      vertical-align: top;
-      padding: 6px;
-      font-size: 11px;
-    }
-
-    .small-label {
       font-size: 9px;
-      color: #444;
+      margin-bottom: 4px;
+      border-bottom: 1px solid #000;
+      padding-bottom: 3px;
     }
 
-    .furigana {
+    /* info-block rows */
+    .info-block .row {
+      display: flex;
+      border-bottom: 1px solid #000;
+    }
+
+    .info-block .row:last-child {
+      border-bottom: none;
+    }
+
+    .info-block .row .cell-label {
+      border-right: 1px solid #000;
+      padding: 3px 6px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 10.5px;
+      letter-spacing: 2px;
+    }
+
+    .info-block .row .cell-value {
+      flex: 1;
+      padding: 3px 8px;
+    }
+
+    .furigana-row .cell-value {
+      font-size: 9px;
+      letter-spacing: 2px;
+      padding: 2px 8px;
+    }
+
+    .name-row .cell-value {
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 6px;
+      padding: 4px 8px;
+    }
+
+    .birth-row .cell-value {
+      display: flex;
+      align-items: center;
+      font-size: 10.5px;
+      gap: 4px;
+      flex-wrap: wrap;
+      padding: 3px 8px;
+    }
+
+    .gender-cell {
+      border-left: 1px solid #000;
+      padding: 3px 8px;
+      white-space: nowrap;
+      font-size: 10px;
+    }
+
+    .addr-furigana {
       font-size: 9px;
       letter-spacing: 2px;
     }
 
-    .name-big {
-      font-size: 18px;
-      font-weight: bold;
-      letter-spacing: 4px;
+    .addr-value {
+      font-size: 10.5px;
+      line-height: 1.7;
     }
 
-    .seal-box {
-      width: 60px;
-      height: 60px;
+    .contact-row {
+      display: flex;
+      border-bottom: none;
+    }
+
+    .contact-row .email-cell {
+      flex: 1;
+      border-right: 1px solid #000;
+      padding: 3px 8px;
+      font-size: 10.5px;
+    }
+
+    .contact-row .tel-label {
+      border-right: 1px solid #000;
+      padding: 3px 6px;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+
+    .contact-row .tel-value {
+      padding: 3px 8px;
+      width: 130px;
+      font-size: 10.5px;
+    }
+
+    /* ======= TABLES (history, license) ======= */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: -1px;
+    }
+
+    td, th {
       border: 1px solid #000;
-      text-align: center;
+      padding: 2px 6px;
       vertical-align: middle;
+    }
+
+    .col-year {
+      width: 52px;
+      text-align: center;
+      font-size: 10.5px;
+    }
+
+    .col-month {
+      width: 28px;
+      text-align: center;
+      font-size: 10.5px;
+    }
+
+    .col-content {
+      font-size: 10.5px;
+      padding-left: 10px;
+    }
+
+    .section-hd {
+      font-weight: bold;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .history-row {
+      height: 21px;
+    }
+
+    /* ======= BOTTOM BOXES ======= */
+    .box-label {
+      font-size: 10.5px;
+      font-weight: bold;
+      padding: 3px 6px;
+      border-bottom: 1px solid #000;
+    }
+
+    .motivation-table {
+      margin-top: -1px;
+    }
+
+    .motivation-label {
+      font-size: 10.5px;
+      font-weight: bold;
+      padding: 3px 6px;
+    }
+
+    .motivation-content {
+      font-size: 10.5px;
+      line-height: 1.75;
+      padding: 5px 8px;
+      height: 110px;
+      vertical-align: top;
+    }
+
+    .bottom-split {
+      display: flex;
+      margin-top: -1px;
+    }
+
+    .bottom-left {
+      flex: 1;
+      border: 1px solid #000;
+      border-right: none;
+    }
+
+    .bottom-right {
+      flex: 1;
+      border: 1px solid #000;
+    }
+
+    .bottom-split-label {
+      font-size: 10.5px;
+      font-weight: bold;
+      padding: 3px 6px;
+      border-bottom: 1px solid #000;
+    }
+
+    .bottom-split-content {
+      font-size: 10.5px;
+      padding: 5px 8px;
+      min-height: 70px;
+      vertical-align: top;
+      line-height: 1.75;
+    }
+
+    .footnote {
       font-size: 9px;
-      color: #888;
+      margin-top: 4px;
+      color: #333;
     }
 
     @media print {
-      body {
-        padding: 0;
-      }
+      body { padding: 0; }
     }
   </style>
 </head>
 <body>
 
-  <h1 class="title">履　歴　書</h1>
-  <p class="date-line">2026年　3月　24日　現在</p>
+  <!-- HEADER -->
+  <div class="header-row">
+    <h1 class="title">履　歴　書</h1>
+    <span class="date-line">2026年　3月　24日現在</span>
+  </div>
 
-  <!-- 基本情報テーブル -->
-  <table class="main-table">
-    <tr>
-      <td class="label" style="width:55px;">ふりがな</td>
-      <td colspan="3" style="width:auto;">
-        <span class="furigana">かえしま　たいち</span>
-      </td>
-      <td class="label" style="width:55px; text-align:center;">性別</td>
-      <td style="width:50px; text-align:center;">男</td>
-      <td class="seal-box" rowspan="2">印</td>
-    </tr>
-    <tr>
-      <td class="label">氏名</td>
-      <td colspan="3">
-        <span class="name-big">嘉永島　大馳</span>
-      </td>
-      <td class="label" style="text-align:center;">生年月日</td>
-      <td style="font-size:10px; white-space:nowrap;">2006年8月22日<br><span class="small-label">（満19歳）</span></td>
-    </tr>
-    <tr>
-      <td class="label">ふりがな</td>
-      <td colspan="5">かながわけん　かわさきし　みやまえく　みやまえだいら</td>
-    </tr>
-    <tr>
-      <td class="label">現住所</td>
-      <td colspan="5">
-        〒216-0033　神奈川県川崎市宮前区宮前平 2-5-20<br>
-        マストレジデンス宮前平 304号室
-      </td>
-    </tr>
-    <tr>
-      <td class="label">電話</td>
-      <td style="width:150px;">080-7237-7056</td>
-      <td class="label" style="width:90px;">メールアドレス</td>
-      <td colspan="3">t.kaeshima@gmail.com</td>
-    </tr>
-  </table>
+  <!-- TOP SECTION: personal info + photo -->
+  <div class="top-section">
+    <div class="info-block">
+
+      <!-- ふりがな -->
+      <div class="row furigana-row">
+        <div class="cell-label" style="font-weight:normal; font-size:9px; letter-spacing:0;">ふりがな</div>
+        <div class="cell-value">かえしま　たいち</div>
+      </div>
+
+      <!-- 氏名 -->
+      <div class="row name-row">
+        <div class="cell-label">氏　名</div>
+        <div class="cell-value">嘉永島　大馳</div>
+      </div>
+
+      <!-- 生年月日 / 性別 -->
+      <div class="row birth-row">
+        <div class="cell-value">
+          2006年&nbsp;8月&nbsp;22日生（満&nbsp;19&nbsp;歳）
+          <span class="gender-cell">※性別&nbsp;男</span>
+        </div>
+      </div>
+
+      <!-- ふりがな (住所) -->
+      <div class="row">
+        <div class="cell-label" style="font-weight:normal; font-size:9px; letter-spacing:0;">ふりがな</div>
+        <div class="cell-value addr-furigana">かながわけん　かわさきし　みやまえく　みやまえだいら</div>
+      </div>
+
+      <!-- 現住所 -->
+      <div class="row" style="min-height:42px;">
+        <div class="cell-label">現住所</div>
+        <div class="cell-value addr-value">
+          〒216－0033　神奈川県川崎市宮前区宮前平 2-5-20<br>
+          マストレジデンス宮前平 304号室
+        </div>
+      </div>
+
+      <!-- E-mail / 電話 -->
+      <div class="row" style="border-bottom:none;">
+        <div class="cell-label" style="font-weight:normal; letter-spacing:0; font-size:10.5px;">E-mail</div>
+        <div class="cell-value" style="flex:1; border-right:1px solid #000;">t.kaeshima@gmail.com</div>
+        <div class="cell-label" style="letter-spacing:0; font-size:10.5px;">電話</div>
+        <div class="cell-value" style="width:130px;">080-7237-7056</div>
+      </div>
+
+    </div><!-- /info-block -->
+
+    <!-- Photo box -->
+    <div class="photo-box">
+      <div class="photo-title">写真をはる位置</div>
+      写真をはる必要がある場合<br>
+      1.&nbsp;縦&nbsp;36〜40mm<br>
+      &nbsp;&nbsp;&nbsp;横&nbsp;24〜30mm<br>
+      2.本人単身胸から上<br>
+      3.裏面のりづけ<br>
+      4.裏面に氏名記入
+    </div>
+  </div><!-- /top-section -->
 
   <!-- 学歴・職歴 -->
-  <table class="main-table history-table">
+  <table>
     <tr>
-      <td class="year-col section-header">年</td>
-      <td class="month-col section-header">月</td>
-      <td class="content-col section-header">学歴・職歴</td>
+      <th class="col-year section-hd">年</th>
+      <th class="col-month section-hd">月</th>
+      <th class="col-content section-hd">学　歴・職　歴（各別にまとめて書く）</th>
     </tr>
-    <tr>
-      <td class="year-col"></td>
-      <td class="month-col"></td>
-      <td class="content-col" style="font-weight:bold;">学歴</td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content" style="font-weight:bold;">学歴</td>
     </tr>
-    <tr>
-      <td class="year-col">2022</td>
-      <td class="month-col">4</td>
-      <td class="content-col">神奈川県立○○高等学校　入学</td>
+    <tr class="history-row">
+      <td class="col-year">2022</td>
+      <td class="col-month">4</td>
+      <td class="col-content">神奈川県立○○高等学校　入学</td>
     </tr>
-    <tr>
-      <td class="year-col">2025</td>
-      <td class="month-col">3</td>
-      <td class="content-col">神奈川県立○○高等学校　卒業</td>
+    <tr class="history-row">
+      <td class="col-year">2025</td>
+      <td class="col-month">3</td>
+      <td class="col-content">神奈川県立○○高等学校　卒業</td>
     </tr>
-    <tr>
-      <td class="year-col">2025</td>
-      <td class="month-col">4</td>
-      <td class="content-col">法政大学　経営学部　経営戦略学科　入学　（現在1年生）</td>
+    <tr class="history-row">
+      <td class="col-year">2025</td>
+      <td class="col-month">4</td>
+      <td class="col-content">法政大学　経営学部　経営戦略学科　入学（現在1年生）</td>
     </tr>
-    <tr>
-      <td class="year-col"></td>
-      <td class="month-col"></td>
-      <td class="content-col"></td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content"></td>
     </tr>
-    <tr>
-      <td class="year-col"></td>
-      <td class="month-col"></td>
-      <td class="content-col" style="font-weight:bold;">職歴</td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content" style="font-weight:bold;">職歴</td>
     </tr>
-    <tr>
-      <td class="year-col"></td>
-      <td class="month-col"></td>
-      <td class="content-col">なし</td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content">なし</td>
     </tr>
-    <tr>
-      <td class="year-col"></td>
-      <td class="month-col"></td>
-      <td class="content-col" style="text-align:right; font-weight:bold;">以上</td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content" style="text-align:right; font-weight:bold; padding-right:12px;">以上</td>
     </tr>
-    <tr>
-      <td class="year-col"></td>
-      <td class="month-col"></td>
-      <td class="content-col"></td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content"></td>
     </tr>
   </table>
 
   <!-- 免許・資格 -->
-  <table class="main-table history-table">
+  <table>
     <tr>
-      <td class="year-col section-header">年</td>
-      <td class="month-col section-header">月</td>
-      <td class="content-col section-header">免許・資格</td>
+      <th class="col-year section-hd">年</th>
+      <th class="col-month section-hd">月</th>
+      <th class="col-content section-hd">免　許・資　格</th>
     </tr>
-    <tr>
-      <td class="year-col"></td>
-      <td class="month-col"></td>
-      <td class="content-col">実用英語技能検定　2級　取得</td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content">実用英語技能検定　2級　取得</td>
     </tr>
-    <tr>
-      <td class="year-col"></td>
-      <td class="month-col"></td>
-      <td class="content-col"></td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content"></td>
     </tr>
-    <tr>
-      <td class="year-col"></td>
-      <td class="month-col"></td>
-      <td class="content-col"></td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content"></td>
     </tr>
-  </table>
-
-  <!-- 志望動機・趣味特技 -->
-  <table class="main-table" style="margin-bottom:10px;">
-    <tr>
-      <td class="label section-header" style="width:80px;">志望動機</td>
-      <td class="motivation-box">
-        貴塾の「結果を出せば報われる」という理念に惹かれたのは、自身の体験からです。高校バレーボール部では入部当初から試合に出られない時期が続きましたが、フォームや動き方を一つひとつ修正し続けた結果、3年時に試合へ貢献できるようになりました。この経験から、正しい努力は必ず結果につながると確信しています。チューターとしては、成績が伸び悩む生徒の「なぜ解けないか」を一緒に整理し、結果を出す喜びを生徒と共有したいと考えています。ぜひ貴塾で働かせてください。
-      </td>
-    </tr>
-    <tr>
-      <td class="label section-header">趣味・特技</td>
-      <td class="pr-box">
-        バレーボール（高校3年間所属）、ゲーム、英語（英検2級）
-      </td>
+    <tr class="history-row">
+      <td class="col-year"></td>
+      <td class="col-month"></td>
+      <td class="col-content"></td>
     </tr>
   </table>
 
-  <!-- 本人希望 -->
-  <table class="main-table">
+  <!-- 志望の動機、特技、アピールポイントなど -->
+  <table class="motivation-table">
     <tr>
-      <td class="label section-header" style="width:80px;">本人希望<br>記入欄</td>
-      <td class="wish-box">
-        勤務日数：週3〜4日程度希望<br>
-        勤務時間：平日・土日ともに応相談<br>
+      <td colspan="2" class="motivation-label">志望の動機、特技、アピールポイントなど</td>
+    </tr>
+    <tr>
+      <td class="motivation-content" colspan="2">
+        貴塾の「結果を出せば報われる」という理念に惹かれたのは、自身の体験からです。高校バレーボール部では入部当初から試合に出られない時期が続きましたが、フォームや動き方を一つひとつ修正し続けた結果、3年時に試合へ貢献できるようになりました。この経験から、正しい努力は必ず結果につながると確信しています。チューターとしては、成績が伸び悩む生徒の「なぜ解けないか」を一緒に整理し、結果を出す喜びを生徒と共有したいと考えています。特技：バレーボール（高校3年間）、英語（英検2級）。ぜひ貴塾で働かせてください。
+      </td>
+    </tr>
+  </table>
+
+  <!-- 希望勤務日・時間帯 / 本人希望記入欄 -->
+  <div class="bottom-split">
+    <div class="bottom-left">
+      <div class="bottom-split-label">希望勤務日・時間帯</div>
+      <div class="bottom-split-content">
+        週3〜4日程度希望<br>
+        平日・土日ともに応相談<br>
         通勤方法：電車（宮前平駅利用）
-      </td>
-    </tr>
-  </table>
+      </div>
+    </div>
+    <div class="bottom-right">
+      <div class="bottom-split-label">本人希望記入欄（職種、店舗、その他）</div>
+      <div class="bottom-split-content">
+        職種：チューター（個別指導）<br>
+        特に希望なし
+      </div>
+    </div>
+  </div>
+
+  <p class="footnote">※「性別」欄：記載は任意です。未記載とすることも可能です。</p>
 
 </body>
 </html>
