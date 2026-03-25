@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>世界史クイズ</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    h1 {
+      font-size: 1.4rem;
+      letter-spacing: .1em;
+      color: #a8d8ea;
+      margin-bottom: 24px;
+    }
+    #card {
+      background: #16213e;
+      border-radius: 16px;
+      padding: 32px 28px;
+      max-width: 480px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0,0,0,.4);
+    }
+    #category {
+      font-size: .75rem;
+      color: #888;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    #question {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    #hint {
+      font-size: .82rem;
+      color: #aaa;
+      margin-bottom: 24px;
+      min-height: 1.2em;
+    }
+    .choices {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .choice {
+      background: #0f3460;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      padding: 14px 10px;
+      cursor: pointer;
+      font-size: .95rem;
+      text-align: center;
+      transition: background .15s, border-color .15s;
+    }
+    .choice:hover { background: #1a4a7a; }
+    .choice.correct { background: #1a4a2a; border-color: #4caf50; color: #81c784; }
+    .choice.wrong   { background: #4a1a1a; border-color: #e53935; color: #ef9a9a; }
+    .choice.reveal  { border-color: #4caf50; color: #81c784; }
+    #result {
+      text-align: center;
+      font-size: 1rem;
+      min-height: 1.4em;
+      margin-bottom: 16px;
+    }
+    #result.ok  { color: #81c784; }
+    #result.ng  { color: #ef9a9a; }
+    #next-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: #e94560;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    #next-btn:hover { background: #c73652; }
+    #score-bar {
+      display: flex;
+      justify-content: space-between;
+      font-size: .85rem;
+      color: #aaa;
+      margin-top: 20px;
+      max-width: 480px;
+      width: 100%;
+    }
+    #mode-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .mode-btn {
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 2px solid #a8d8ea;
+      background: transparent;
+      color: #a8d8ea;
+      cursor: pointer;
+      font-size: .82rem;
+    }
+    .mode-btn.active { background: #a8d8ea; color: #1a1a2e; }
+  </style>
+</head>
+<body>
+
+<h1>世界史クイズ</h1>
+
+<div id="mode-toggle">
+  <button class="mode-btn active" onclick="setMode('capital')">首都を答える</button>
+  <button class="mode-btn" onclick="setMode('country')">国・帝国を答える</button>
+</div>
+
+<div id="card">
+  <div id="category"></div>
+  <div id="question"></div>
+  <div id="hint"></div>
+  <div class="choices" id="choices"></div>
+  <div id="result"></div>
+  <button id="next-btn" onclick="nextQuestion()">次の問題へ</button>
+</div>
+
+<div id="score-bar">
+  <span id="score-text">正解: 0 / 0</span>
+  <span id="streak-text">連続正解: 0</span>
+</div>
+
+<script>
+const DATA = [
+  // 古代
+  { country:"ローマ帝国", capital:"ローマ", era:"古代", hint:"地中海世界を支配した大帝国（前27〜476年）" },
+  { country:"東ローマ帝国（ビザンツ帝国）", capital:"コンスタンティノープル", era:"古代〜中世", hint:"1453年オスマン帝国に滅ぼされた" },
+  { country:"アレクサンドロス帝国", capital:"バビロン", era:"古代", hint:"マケドニアの征服王の帝国" },
+  { country:"アケメネス朝ペルシア", capital:"ペルセポリス", era:"古代", hint:"ダレイオス1世が建設した都" },
+  { country:"古代エジプト（新王国）", capital:"テーベ", era:"古代", hint:"アモン神殿で有名な王都" },
+  { country:"漢（前漢）", capital:"長安", era:"古代", hint:"現在の西安付近、シルクロードの起点" },
+  { country:"秦", capital:"咸陽", era:"古代", hint:"中国初の統一王朝の都" },
+  { country:"孔雀朝マウリヤ朝", capital:"パータリプトラ", era:"古代", hint:"アショーカ王が統治したインドの帝国" },
+  { country:"カルタゴ", capital:"カルタゴ", era:"古代", hint:"ローマと争った北アフリカの都市国家" },
+  // 中世
+  { country:"フランク王国", capital:"アーヘン", era:"中世", hint:"カール大帝が首都とした西欧の都市" },
+  { country:"神聖ローマ帝国", capital:"ウィーン", era:"中世〜近世", hint:"ハプスブルク家が支配したドイツを中心とする帝国" },
+  { country:"オスマン帝国", capital:"コンスタンティノープル（イスタンブール）", era:"中世〜近代", hint:"1453年にビザンツ帝国を滅ぼして入城" },
+  { country:"モンゴル帝国（元）", capital:"大都（カンバリク）", era:"中世", hint:"現在の北京付近、フビライが建設した都" },
+  { country:"アッバース朝", capital:"バグダード", era:"中世", hint:"「千夜一夜物語」の舞台となったイスラム帝国の都" },
+  { country:"ウマイヤ朝", capital:"ダマスカス", era:"中世", hint:"最初のイスラム帝国、現シリアの都市" },
+  { country:"マリ王国", capital:"ニアニ", era:"中世", hint:"西アフリカの黄金と塩で栄えた王国" },
+  { country:"キエフ公国", capital:"キエフ", era:"中世", hint:"ロシア・ウクライナ文化の起源となったスラブ国家" },
+  // 近世
+  { country:"ムガル帝国", capital:"デリー（アグラ）", era:"近世", hint:"タージ・マハルを建てた皇帝の帝国" },
+  { country:"サファヴィー朝", capital:"イスファハン", era:"近世", hint:"「世界の半分」と称された美しい都" },
+  { country:"明", capital:"北京", era:"近世", hint:"永楽帝が南京から遷都した中国王朝" },
+  { country:"清", capital:"北京", era:"近世〜近代", hint:"満州族が建てた中国最後の王朝" },
+  { country:"インカ帝国", capital:"クスコ", era:"近世", hint:"アンデス山脈に栄えた南米の帝国" },
+  { country:"アステカ帝国", capital:"テノチティトラン", era:"近世", hint:"現在のメキシコシティの前身" },
+  { country:"スペイン帝国（ハプスブルク朝）", capital:"マドリード", era:"近世", hint:"大航海時代に世界最大の植民地を持った" },
+  // 近代
+  { country:"ナポレオン帝国（第一帝政）", capital:"パリ", era:"近代", hint:"ナポレオン1世が支配したフランスを中心とする帝国" },
+  { country:"ロシア帝国", capital:"サンクトペテルブルク", era:"近代", hint:"ピョートル大帝が建設した「西方への窓」" },
+  { country:"オーストリア＝ハンガリー帝国", capital:"ウィーン", era:"近代", hint:"第一次世界大戦で崩壊した多民族国家" },
+  { country:"プロイセン王国", capital:"ベルリン", era:"近代", hint:"ドイツ統一を主導したホーエンツォレルン家の国家" },
+  { country:"大英帝国（イギリス）", capital:"ロンドン", era:"近代", hint:"「日の沈まぬ帝国」" },
+  // 現代
+  { country:"中華人民共和国", capital:"北京", era:"現代", hint:"1949年建国、毛沢東が宣言した" },
+  { country:"アメリカ合衆国", capital:"ワシントンD.C.", era:"現代", hint:"ニューヨークではないので注意" },
+  { country:"ブラジル", capital:"ブラジリア", era:"現代", hint:"1960年に計画都市として建設された新首都" },
+  { country:"オーストラリア", capital:"キャンベラ", era:"現代", hint:"シドニーとメルボルンの妥協で作られた首都" },
+  { country:"カナダ", capital:"オタワ", era:"現代", hint:"トロントでもバンクーバーでもない" },
+  { country:"インド", capital:"ニューデリー", era:"現代", hint:"イギリス植民地時代に建設された計画都市" },
+  { country:"南アフリカ共和国", capital:"プレトリア（行政）", era:"現代", hint:"立法・司法・行政の3首都を持つ国" },
+  { country:"エジプト", capital:"カイロ", era:"現代", hint:"アフリカ最大の都市でもある" },
+  { country:"トルコ", capital:"アンカラ", era:"現代", hint:"イスタンブールではなくアナトリア高原の都市" },
+  { country:"パキスタン", capital:"イスラマバード", era:"現代", hint:"1967年に建設された計画都市" },
+];
+
+let mode = 'capital'; // 'capital' or 'country'
+let current = null;
+let answered = false;
+let score = 0;
+let total = 0;
+let streak = 0;
+let usedIndices = [];
+
+function setMode(m) {
+  mode = m;
+  document.querySelectorAll('.mode-btn').forEach((b, i) => {
+    b.classList.toggle('active', (i === 0 && m === 'capital') || (i === 1 && m === 'country'));
+  });
+  nextQuestion();
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function pickRandom(exclude, count) {
+  const pool = DATA.filter((_, i) => i !== exclude);
+  return shuffle(pool).slice(0, count);
+}
+
+function nextQuestion() {
+  answered = false;
+  document.getElementById('result').textContent = '';
+  document.getElementById('result').className = '';
+
+  if (usedIndices.length >= DATA.length) usedIndices = [];
+  let idx;
+  do { idx = Math.floor(Math.random() * DATA.length); } while (usedIndices.includes(idx));
+  usedIndices.push(idx);
+  current = { ...DATA[idx], idx };
+
+  const isCapital = mode === 'capital';
+  document.getElementById('category').textContent = `${current.era} / ${isCapital ? '首都を答えよ' : '国・帝国を答えよ'}`;
+  document.getElementById('question').textContent = isCapital ? current.country : `首都：${current.capital}`;
+  document.getElementById('hint').textContent = current.hint;
+
+  // 選択肢：正解 + 3つのダミー
+  const wrongs = pickRandom(idx, 3).map(d => isCapital ? d.capital : d.country);
+  const correct = isCapital ? current.capital : current.country;
+  const choices = shuffle([correct, ...wrongs]);
+
+  const container = document.getElementById('choices');
+  container.innerHTML = '';
+  choices.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.textContent = c;
+    btn.onclick = () => answer(btn, c === correct, correct);
+    container.appendChild(btn);
+  });
+}
+
+function answer(btn, isCorrect, correct) {
+  if (answered) return;
+  answered = true;
+  total++;
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    score++;
+    streak++;
+    document.getElementById('result').textContent = '正解！';
+    document.getElementById('result').className = 'ok';
+  } else {
+    btn.classList.add('wrong');
+    streak = 0;
+    document.getElementById('result').textContent = `不正解。正解は「${correct}」`;
+    document.getElementById('result').className = 'ng';
+    // 正解を緑に
+    document.querySelectorAll('.choice').forEach(b => {
+      if (b.textContent === correct) b.classList.add('reveal');
+    });
+  }
+
+  document.getElementById('score-text').textContent = `正解: ${score} / ${total}`;
+  document.getElementById('streak-text').textContent = `連続正解: ${streak}`;
+}
+
+nextQuestion();
+</script>
+</body>
+</html>
