@@ -3,7 +3,6 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm
-import textwrap
 
 pdfmetrics.registerFont(TTFont('IPAGothic', '/usr/share/fonts/opentype/ipafont-gothic/ipag.ttf'))
 
@@ -20,26 +19,26 @@ font_size = 11
 line_height = font_size * 1.8
 usable_width = page_width - margin_left - margin_right
 
-c = canvas.Canvas(output_path, pagesize=A4)
-c.setFont('IPAGothic', font_size)
-
-# Wrap text to fit width
-# Approximate chars per line based on font size and width
-chars_per_line = int(usable_width / (font_size * 0.6))
-
-# Manual wrapping for Japanese text
-def wrap_japanese(text, max_chars):
+def wrap_by_width(text, font_name, font_size, max_width):
+    """stringWidth で実際の幅を測りながら折り返す"""
     lines = []
-    while len(text) > max_chars:
-        lines.append(text[:max_chars])
-        text = text[max_chars:]
-    if text:
-        lines.append(text)
+    while text:
+        lo, hi = 1, len(text)
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if pdfmetrics.stringWidth(text[:mid], font_name, font_size) <= max_width:
+                lo = mid
+            else:
+                hi = mid - 1
+        lines.append(text[:lo])
+        text = text[lo:]
     return lines
 
-# Indent first line (paragraph style)
 indented = '　　' + text
-lines = wrap_japanese(indented, chars_per_line)
+lines = wrap_by_width(indented, 'IPAGothic', font_size, usable_width)
+
+c = canvas.Canvas(output_path, pagesize=A4)
+c.setFont('IPAGothic', font_size)
 
 y = page_height - margin_top
 for line in lines:
