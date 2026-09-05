@@ -2,22 +2,13 @@
 import time
 
 def ippatsu_gei():
-    print("（深刻な顔で）")
-    time.sleep(1)
+    print("「最近、健康のために毎朝ランニングしてるんですよ」")
+    time.sleep(2)
     print()
-    print("「実は困ってることがあって…」")
+    print("「朝5時に起きて」")
     time.sleep(1.5)
     print()
-    print("「友達にお金貸したんですけど…」")
-    time.sleep(1.5)
-    print()
-    print("「　　　　　　　　かえしま…」")
-    time.sleep(0.5)
-    print()
-    print("「　　　　　　　せん！！！」")
-    time.sleep(0.5)
-    print()
-    print("どうも、かえしまです。")
+    print("「布団の中で足をバタバタさせてます」")
 
 if __name__ == "__main__":
     ippatsu_gei()
