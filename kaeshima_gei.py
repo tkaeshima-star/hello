@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 
 def ippatsu_gei():
-    print("はい注目！")
+    print("どうも、かえしまです。")
     print()
-    print("かえしま、と申します。")
+    print("名前でひと芸やります。")
     print()
-    print("　　　　↓")
+    print("　か　→　かっこいい")
+    print("　え　→　えっ！？")
+    print("　し　→　しかも")
+    print("　ま　→　またかっこいい")
     print()
-    print("　か　　え　　し　　ま")
-    print("　🦀　　🦐　　🍣　　🐟")
-    print()
-    print("「返し間違えたお寿司屋さん」")
-    print()
-    print("どうもありがとうございました！🙇")
+    print("「かえしま」でした。ありがとうございます。🙇")
 
 if __name__ == "__main__":
     ippatsu_gei()
