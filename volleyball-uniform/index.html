@@ -10,21 +10,21 @@
 body{margin:0;background:var(--bg);color:var(--fg);font-family:"Helvetica Neue",Arial,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.6}
 main{max-width:1100px;margin:0 auto;padding:32px 16px 64px}
 h1{font-size:clamp(32px,6vw,56px);letter-spacing:.06em;margin:0;font-style:italic;font-weight:900}
-h1 span{color:#FFD400}
+h1 span{color:#FFE100}
 .lead{color:var(--muted);margin:4px 0 28px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 figure{margin:0;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
 figcaption{color:var(--muted);font-size:13px;margin-top:6px}
 svg{width:100%;height:auto;display:block}
-h2{font-size:20px;margin:40px 0 12px;border-left:4px solid #FFD400;padding-left:10px}
+h2{font-size:20px;margin:40px 0 12px;border-left:4px solid #FFE100;padding-left:10px}
 table{width:100%;border-collapse:collapse;font-size:14px}
 td,th{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
 th{color:var(--muted);font-weight:normal;width:34%}
 .sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:6px;border:1px solid #555}
 ol{padding-left:20px}
-a{color:#00C2FF}
-.player{--base:#101218;--a1:#FFD400;--a2:#00C2FF;--mark:#ffffff}
-.libero{--base:#FFD400;--a1:#101218;--a2:#00C2FF;--mark:#101218}
+a{color:#6EC8E4}
+.player{--base:#000000;--a1:#FFE100;--a2:#6EC8E4;--mark:#ffffff}
+.libero{--base:#FFE100;--a1:#000000;--a2:#6EC8E4;--mark:#000000}
 .base{fill:var(--base)}.a1{fill:var(--a1)}.a2{fill:var(--a2)}.mk{fill:var(--mark)}
 .st{fill:none;stroke:#000;stroke-opacity:.35;stroke-width:1.5}
 .num{font-family:Impact,"Arial Black",sans-serif;font-style:italic;font-weight:900;text-anchor:middle}
@@ -34,7 +34,7 @@ a{color:#00C2FF}
 <body>
 <main>
 <h1>VOLT <span>STRIKE</span></h1>
-<p class="lead">稲妻が斜めに走るアタッカー向けデザイン。ブラック × エレクトリックイエロー × シアンで、コートで一番目立つユニフォームに。</p>
+<p class="lead">稲妻が斜めに走るアタッカー向けデザイン。UNIO基本色のブラック × イエロー × スカイブルーで、コートで一番目立つユニフォームに。</p>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <defs>
@@ -84,23 +84,23 @@ a{color:#00C2FF}
   <figure class="player">
     <svg viewBox="0 0 300 340" role="img" aria-label="シャツ前面">
       <use href="#shirtArt"/>
-      <text class="ttl mk" x="150" y="112" font-size="26" stroke="#101218" stroke-width="1">STRIKERS</text>
-      <text class="num mk" x="150" y="205" font-size="78" stroke="#101218" stroke-width="4">7</text>
+      <text class="ttl mk" x="150" y="112" font-size="26" stroke="#000000" stroke-width="1">STRIKERS</text>
+      <text class="num mk" x="150" y="205" font-size="78" stroke="#000000" stroke-width="4">7</text>
     </svg>
     <figcaption>シャツ（前）— 胸中央チーム名 ＋ 胸番号</figcaption>
   </figure>
   <figure class="player">
     <svg viewBox="0 0 300 340" role="img" aria-label="シャツ背面">
       <g transform="translate(300,0) scale(-1,1)"><use href="#shirtArt"/></g>
-      <text class="ttl mk" x="150" y="78" font-size="22" stroke="#101218" stroke-width="1">SATO</text>
-      <text class="num mk" x="150" y="245" font-size="150" stroke="#101218" stroke-width="3">7</text>
+      <text class="ttl mk" x="150" y="78" font-size="22" stroke="#000000" stroke-width="1">SATO</text>
+      <text class="num mk" x="150" y="245" font-size="150" stroke="#000000" stroke-width="3">7</text>
     </svg>
     <figcaption>シャツ（後）— 背ネーム ＋ 背番号（稲妻は左右反転）</figcaption>
   </figure>
   <figure class="player">
     <svg viewBox="0 0 300 200" role="img" aria-label="パンツ">
       <use href="#shortsArt"/>
-      <text class="num mk" x="230" y="160" font-size="34" stroke="#101218" stroke-width="1">7</text>
+      <text class="num mk" x="230" y="160" font-size="34" stroke="#000000" stroke-width="1">7</text>
     </svg>
     <figcaption>パンツ — サイドに稲妻ライン、右足に番号</figcaption>
   </figure>
@@ -116,12 +116,12 @@ a{color:#00C2FF}
 
 <h2>カラー</h2>
 <table>
-<tr><th>ベース</th><td><span class="sw" style="background:#101218"></span>ブラック #101218</td></tr>
-<tr><th>メインアクセント（稲妻・襟・袖口）</th><td><span class="sw" style="background:#FFD400"></span>エレクトリックイエロー #FFD400</td></tr>
-<tr><th>サブアクセント（残像ライン）</th><td><span class="sw" style="background:#00C2FF"></span>シアン #00C2FF</td></tr>
-<tr><th>マーキング</th><td><span class="sw" style="background:#fff"></span>ホワイト（黒フチ）</td></tr>
+<tr><th>ベース</th><td><span class="sw" style="background:#000000"></span>ブラック</td></tr>
+<tr><th>メインアクセント（稲妻・襟・袖口）</th><td><span class="sw" style="background:#FFE100"></span>イエロー</td></tr>
+<tr><th>サブアクセント（残像ライン）</th><td><span class="sw" style="background:#6EC8E4"></span>スカイブルー</td></tr>
+<tr><th>マーキング</th><td><span class="sw" style="background:#fff"></span>ホワイト（ブラックのフチ）</td></tr>
 </table>
-<p class="lead" style="margin-top:8px">※ UNIOのカラー見本（30色）から一番近い色を選んでください：黒 / イエロー / サックス系。</p>
+<p class="lead" style="margin-top:8px">※ すべてUNIOの基本色25色の中の色です。シミュレーターでは同じ名前の色を選んでください。</p>
 
 <h2>マーキング（UNIOは全箇所無料）</h2>
 <table>
